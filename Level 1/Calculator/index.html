@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Calculator</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <div class="calculator-container">
+        <div class="calculator">
+            <div class="header-actions">
+                <button id="historyToggle" class="icon-btn" title="View History">📜 History</button>
+            </div>
+            
+            <input type="text" id="display" readonly placeholder="0">
+
+            <div class="buttons" id="btnContainer">
+                <button data-action="clear" class="util-btn">C</button>
+                <button data-action="toggle-sign" class="util-btn">±</button>
+                <button data-val="%" class="util-btn">%</button>
+                <button data-val="/" class="operator-btn">/</button>
+
+                <button data-val="7">7</button>
+                <button data-val="8">8</button>
+                <button data-val="9">9</button>
+                <button data-val="*" class="operator-btn">*</button>
+
+                <button data-val="4">4</button>
+                <button data-val="5">5</button>
+                <button data-val="6">6</button>
+                <button data-val="-" class="operator-btn">-</button>
+
+                <button data-val="1">1</button>
+                <button data-val="2">2</button>
+                <button data-val="3">3</button>
+                <button data-val="+" class="operator-btn">+</button>
+
+                <button data-val="0">0</button>
+                <button data-val=".">.</button>
+                <button data-action="delete" class="util-btn">⌫</button>
+                <button data-action="calculate" class="equals-btn">=</button>
+            </div>
+        </div>
+
+        <div class="history-panel" id="historyPanel">
+            <div class="history-header">
+                <h3>History</h3>
+                <button id="clearHistory" class="clear-history-btn">Clear Logs</button>
+            </div>
+            <div class="history-list" id="historyList">
+                <div class="empty-state">No recent calculations</div>
+            </div>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
