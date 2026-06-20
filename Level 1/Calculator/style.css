@@ -1,0 +1,278 @@
+/* --- Base Reset & Core Properties --- */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+}
+
+body {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    background: radial-gradient(circle at top left, #1e1b4b, #0f172a);
+    overflow: hidden;
+    padding: 20px;
+}
+
+/* --- Layout Wrapper (Handles Side-by-Side History) --- */
+.calculator-container {
+    display: flex;
+    position: relative;
+    gap: 20px;
+    align-items: stretch;
+}
+
+/* --- Main Calculator Card (Glassmorphism) --- */
+.calculator {
+    background: rgba(30, 41, 59, 0.7);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    padding: 25px;
+    border-radius: 24px;
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4), 
+                inset 0 1px 0 rgba(255, 255, 255, 0.1);
+    width: 340px;
+    border: 1px solid rgba(255, 255, 255, 0.05);
+    z-index: 2;
+}
+
+/* Top header actions panel */
+.header-actions {
+    display: flex;
+    justify-content: flex-start;
+    margin-bottom: 12px;
+}
+
+.icon-btn {
+    background: rgba(255, 255, 255, 0.05);
+    color: #94a3b8;
+    border: none;
+    font-size: 13px;
+    font-weight: 500;
+    padding: 6px 14px;
+    border-radius: 20px;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    height: auto;
+}
+
+.icon-btn:hover {
+    background: rgba(255, 255, 255, 0.15);
+    color: #fff;
+}
+
+#display {
+    width: 100%;
+    height: 85px;
+    margin-bottom: 20px;
+    font-size: 38px;
+    font-weight: 300;
+    text-align: right;
+    padding: 10px 20px;
+    border: none;
+    background: rgba(15, 23, 42, 0.6);
+    border-radius: 16px;
+    outline: none;
+    color: #f8fafc;
+    letter-spacing: 1px;
+    box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.3);
+}
+
+#display::placeholder {
+    color: rgba(255, 255, 255, 0.15);
+}
+
+/* --- Control Grid Layout --- */
+.buttons {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 12px;
+}
+
+button {
+    height: 60px;
+    border: none;
+    border-radius: 16px;
+    font-size: 22px;
+    font-weight: 500;
+    cursor: pointer;
+    background: rgba(255, 255, 255, 0.06);
+    color: #e2e8f0;
+    transition: all 0.15s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* Universal Button Interactions */
+button:hover {
+    background: rgba(255, 255, 255, 0.15);
+    color: #ffffff;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+}
+
+button:active {
+    transform: translateY(1px);
+    box-shadow: none;
+}
+
+/* --- Themed Button Variations --- */
+
+/* Math Operators (*, /, -, +) */
+.operator-btn {
+    background: rgba(99, 102, 241, 0.15);
+    color: #818cf8;
+}
+.operator-btn:hover {
+    background: #6366f1;
+    color: #ffffff;
+}
+
+/* Top row utilities & Backspace */
+.util-btn {
+    background: rgba(255, 255, 255, 0.1);
+    color: #cbd5e1;
+}
+button[data-action="clear"], 
+button[data-action="delete"] {
+    background: rgba(244, 63, 94, 0.12);
+    color: #fb7185;
+}
+button[data-action="clear"]:hover, 
+button[data-action="delete"]:hover {
+    background: #f43f5e;
+    color: #ffffff;
+}
+
+/* Accent Equals Button */
+.equals-btn {
+    background: linear-gradient(135deg, #a855f7, #7c3aed);
+    color: #ffffff;
+    box-shadow: 0 4px 14px rgba(124, 58, 237, 0.3);
+}
+.equals-btn:hover {
+    background: linear-gradient(135deg, #b55fe6, #8b5cf6);
+    box-shadow: 0 6px 20px rgba(124, 58, 237, 0.5);
+}
+
+/* --- Sliding History Panel Component --- */
+.history-panel {
+    width: 280px;
+    background: rgba(15, 23, 42, 0.6);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    border: 1px solid rgba(255, 255, 255, 0.05);
+    border-radius: 24px;
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+    
+    /* Animation Properties */
+    opacity: 0;
+    transform: translateX(-30px);
+    pointer-events: none;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    width: 0;
+    padding: 0;
+    border: none;
+}
+
+/* Toggled State via JS */
+.history-panel.active {
+    opacity: 1;
+    transform: translateX(0);
+    pointer-events: auto;
+    width: 280px;
+    padding: 20px;
+    border: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+.history-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 15px;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    padding-bottom: 10px;
+    color: #f8fafc;
+}
+
+.clear-history-btn {
+    background: transparent;
+    border: none;
+    color: #94a3b8;
+    font-size: 12px;
+    cursor: pointer;
+    height: auto;
+    width: auto;
+    padding: 4px 8px;
+}
+.clear-history-btn:hover {
+    color: #fb7185;
+    background: transparent;
+    box-shadow: none;
+    transform: none;
+}
+
+.history-list {
+    flex: 1;
+    overflow-y: auto;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    padding-right: 5px;
+}
+
+/* Custom scrollbar styling for history */
+.history-list::-webkit-scrollbar {
+    width: 4px;
+}
+.history-list::-webkit-scrollbar-thumb {
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 4px;
+}
+
+.history-item {
+    background: rgba(255, 255, 255, 0.03);
+    padding: 10px 14px;
+    border-radius: 12px;
+    text-align: right;
+    cursor: pointer;
+    transition: background 0.2s;
+    border: 1px solid rgba(255, 255, 255, 0.02);
+}
+.history-item:hover {
+    background: rgba(255, 255, 255, 0.08);
+}
+
+.history-expr {
+    font-size: 13px;
+    color: #94a3b8;
+    margin-bottom: 2px;
+}
+
+.history-res {
+    font-size: 18px;
+    color: #38bdf8;
+    font-weight: 600;
+}
+
+.empty-state {
+    color: #64748b;
+    text-align: center;
+    font-size: 14px;
+    margin-top: 30px;
+    font-style: italic;
+}
+
+/* Responsive adjustments for smaller windows */
+@media (max-width: 680px) {
+    .calculator-container {
+        flex-direction: column;
+    }
+    .history-panel.active {
+        width: 340px;
+        height: 200px;
+    }
+}
